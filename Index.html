@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" manifest="offline.manifest">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		
+		<title>Practo - Contacts Reader</title>
+		<link rel="stylesheet" type="text/css" href="./css/demo_page.css">
+		<link rel="stylesheet" type="text/css" href="./css/demo_table.css">
+		<script type="text/javascript" language="javascript" src="./js/jquery.js"></script>
+		<script type="text/javascript" language="javascript" src="./js/jquery.grid.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {
+				var oTable = $('#example').dataTable( {
+					"bProcessing": true,
+					"sAjaxSource": "contactDB/contacts.json"
+				} );
+			} );
+		</script>
+		<script type="text/javascript" language="javascript">
+			function updateOnlineStatus(msg) 
+			{
+		      var status = document.getElementById("status");
+		      var condition = navigator.onLine ? "Online" : "Offline";
+		      status.setAttribute("class", condition);
+		      var state = document.getElementById("state");
+			  varStateImage = navigator.onLine ? "<img src='images/online.png' alt = 'Online' />" : "<img src='images/offline.png' alt = 'Offline' />";
+		      state.innerHTML = condition + varStateImage;
+		    }
+		    function loaded() {
+		      updateOnlineStatus("load");
+		      document.body.addEventListener("offline", function () {
+		        updateOnlineStatus("offline")
+		      }, false);
+		      document.body.addEventListener("online", function () {
+		        updateOnlineStatus("online")
+		      }, false);
+		    }
+		</script>
+	</head>
+	<body id="dt_example" onload="loaded()">
+		<div id="container">
+			<div class="full_width big">
+				Contacts Reader 
+				<div id="status">
+					<div id="state"></div>
+				</div>
+			</div>
+			<h1>Contacts:</h1>
+			<div id="dynamic">
+				<table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+					<thead>
+						<tr>
+							<th width="30%">ID</th>
+							<th width="40%">Name</th>
+							<th width="30%">Mobile Number</th>
+						</tr>
+					</thead>
+					<tbody>
+						
+					</tbody>
+					<tfoot>
+						<tr>
+							<th>ID</th>
+							<th>Name</th>
+							<th>Mobile Number</th>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>
